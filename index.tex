@@ -1,0 +1,1171 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Project 1: Wrangling, Exploration, Visualization},
+  pdfauthor={SDS322E},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{longtable}
+
+\title{Project 1: Wrangling, Exploration, Visualization}
+\author{SDS322E}
+\date{}
+
+\begin{document}
+\maketitle
+
+\hypertarget{data-wrangling-exploration-visualization}{%
+\subsection{Data Wrangling, Exploration,
+Visualization}\label{data-wrangling-exploration-visualization}}
+
+\hypertarget{chenyue-xu-eid-cx2436}{%
+\subsubsection{Chenyue Xu; EID: cx2436}\label{chenyue-xu-eid-cx2436}}
+
+\hypertarget{introduction}{%
+\paragraph{Introduction}\label{introduction}}
+
+The datasets \texttt{artists} and \texttt{artwork} here were compiled by
+the github repository
+\url{https://github.com/rfordatascience/tidytuesday}, and came from the
+Tate Art Museum github repository. It contains the metadata for around
+70,000 artworks, and more than 3,000 artists.
+
+The \texttt{artwork} dataset includes variables that help identify the
+art pieces such as \emph{id}, \emph{artistId}, \emph{title}, variables
+that detail physical properties of the artpieces such as \emph{width},
+\emph{height}, \emph{depth}, and also background information about the
+artpieces such as \emph{year}, \emph{inscription}, \emph{medium}.
+
+The \texttt{artist} data set contains information that identifies the
+artists, like variables \emph{name}, \emph{id}, but also their
+biographical information such as \emph{gender}, \emph{yearOfBirth},
+\emph{yearOfDeath}, \emph{placeOfBirth}, \emph{placeOfDeath}.
+
+MISSING: ``why they are interesting to you, etc.''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{artwork <-}\StringTok{ }\NormalTok{readr}\OperatorTok{::}\KeywordTok{read_csv}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-12/artwork.csv"}\NormalTok{)}
+\NormalTok{artists <-}\StringTok{ }\NormalTok{readr}\OperatorTok{::}\KeywordTok{read_csv}\NormalTok{(}\StringTok{"https://github.com/tategallery/collection/raw/master/artist_data.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(artwork)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 20
+##      id accession_number artist artistRole artistId title dateText medium
+##   <dbl> <chr>            <chr>  <chr>         <dbl> <chr> <chr>    <chr> 
+## 1  1035 A00001           Blake~ artist           38 A Fi~ date no~ Water~
+## 2  1036 A00002           Blake~ artist           38 Two ~ date no~ Graph~
+## 3  1037 A00003           Blake~ artist           38 The ~ ?c.1785  Graph~
+## 4  1038 A00004           Blake~ artist           38 Six ~ date no~ Graph~
+## 5  1039 A00005           Blake~ artist           39 The ~ 1826–7,~ Line ~
+## 6  1040 A00006           Blake~ artist           39 Ciam~ 1826–7,~ Line ~
+## # ... with 12 more variables: creditLine <chr>, year <dbl>,
+## #   acquisitionYear <dbl>, dimensions <chr>, width <dbl>, height <dbl>,
+## #   depth <dbl>, units <chr>, inscription <chr>, thumbnailCopyright <lgl>,
+## #   thumbnailUrl <chr>, url <chr>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(artists)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 9
+##      id name  gender dates yearOfBirth yearOfDeath placeOfBirth placeOfDeath
+##   <dbl> <chr> <chr>  <chr>       <dbl>       <dbl> <chr>        <chr>       
+## 1 10093 Abak~ Female born~        1930          NA Polska       <NA>        
+## 2     0 Abbe~ Male   1852~        1852        1911 Philadelphi~ London, Uni~
+## 3  2756 Abbo~ Female 1898~        1898        1991 Springfield~ Monson, Uni~
+## 4     1 Abbo~ Male   1760~        1760        1803 Leicestersh~ London, Uni~
+## 5   622 Abra~ Male   born~        1935          NA Wigan, Unit~ <NA>        
+## 6  2606 Absa~ Male   1964~        1964        1993 Tel Aviv-Ya~ Paris, Fran~
+## # ... with 1 more variable: url <chr>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(artwork)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        id         accession_number      artist           artistRole       
+##  Min.   :     3   Length:69201       Length:69201       Length:69201      
+##  1st Qu.: 19096   Class :character   Class :character   Class :character  
+##  Median : 37339   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   : 39148                                                           
+##  3rd Qu.: 54712                                                           
+##     artistId        title             dateText            medium         
+##  Min.   :    0   Length:69201       Length:69201       Length:69201      
+##  1st Qu.:  558   Class :character   Class :character   Class :character  
+##  Median :  558   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   : 1201                                                           
+##  3rd Qu.: 1137                                                           
+##   creditLine             year      acquisitionYear  dimensions       
+##  Length:69201       Min.   :1545   Min.   :1823    Length:69201      
+##  Class :character   1st Qu.:1817   1st Qu.:1856    Class :character  
+##  Mode  :character   Median :1831   Median :1856    Mode  :character  
+##                     Mean   :1867   Mean   :1911                      
+##                     3rd Qu.:1953   3rd Qu.:1982                      
+##      width             height            depth             units          
+##  Min.   :    3.0   Min.   :    6.0   Min.   :    1.00   Length:69201      
+##  1st Qu.:  118.0   1st Qu.:  117.0   1st Qu.:   48.25   Class :character  
+##  Median :  175.0   Median :  190.0   Median :  190.00   Mode  :character  
+##  Mean   :  323.5   Mean   :  346.4   Mean   :  479.20                     
+##  3rd Qu.:  345.0   3rd Qu.:  359.0   3rd Qu.:  450.00                     
+##  inscription        thumbnailCopyright thumbnailUrl           url           
+##  Length:69201       Mode:logical       Length:69201       Length:69201      
+##  Class :character   NA's:69201         Class :character   Class :character  
+##  Mode  :character                      Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##  [ reached getOption("max.print") -- omitted 2 rows ]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(artists)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        id              name              gender             dates          
+##  Min.   :    0.0   Length:3532        Length:3532        Length:3532       
+##  1st Qu.:  885.8   Class :character   Class :character   Class :character  
+##  Median : 1772.5   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   : 3330.3                                                           
+##  3rd Qu.: 2676.2                                                           
+##  Max.   :18896.0                                                           
+##                                                                            
+##   yearOfBirth    yearOfDeath   placeOfBirth       placeOfDeath      
+##  Min.   :1497   Min.   :1543   Length:3532        Length:3532       
+##  1st Qu.:1855   1st Qu.:1876   Class :character   Class :character  
+##  Median :1910   Median :1944   Mode  :character   Mode  :character  
+##  Mean   :1887   Mean   :1921                                        
+##  3rd Qu.:1941   3rd Qu.:1983                                        
+##  Max.   :2004   Max.   :2014                                        
+##  NA's   :60     NA's   :1304                                        
+##      url           
+##  Length:3532       
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+##                    
+## 
+\end{verbatim}
+
+I chose to join the two sets with \texttt{inner\_join} since I want to
+investigate the relationship between artist and their artwork, therefore
+I wanted to exclude rows where either side of the information is
+missing.
+
+There were 69201 rows in total in \texttt{artwork} prior to joining, and
+3532 in \texttt{artists}.
+
+The Columns in \texttt{artwork} not present in \texttt{artists} are
+
+\hypertarget{tidying-reshaping}{%
+\paragraph{Tidying: Reshaping}\label{tidying-reshaping}}
+
+I am using pivot\_longer in the Wrangling section to organize my summary
+statistics.
+
+\hypertarget{joiningmerging}{%
+\paragraph{Joining/Merging}\label{joiningmerging}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# resolving naming conflict/unify name of joining variable}
+\KeywordTok{names}\NormalTok{(artists)[}\KeywordTok{names}\NormalTok{(artists) }\OperatorTok{==}\StringTok{ "id"}\NormalTok{] <-}\StringTok{ "artistId"}
+\KeywordTok{names}\NormalTok{(artists)[}\KeywordTok{names}\NormalTok{(artists) }\OperatorTok{==}\StringTok{ "url"}\NormalTok{] <-}\StringTok{ "url.artists"}
+\KeywordTok{names}\NormalTok{(artwork)[}\KeywordTok{names}\NormalTok{(artwork) }\OperatorTok{==}\StringTok{ "url"}\NormalTok{] <-}\StringTok{ "url.artwork"}
+\CommentTok{# actual joining}
+\NormalTok{art =}\StringTok{ }\KeywordTok{inner_join}\NormalTok{(artwork, artists, }\DataTypeTok{by =} \StringTok{"artistId"}\NormalTok{)}
+\CommentTok{# preview actual joint dataset}
+\KeywordTok{head}\NormalTok{(art)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 28
+##      id accession_number artist artistRole artistId title dateText medium
+##   <dbl> <chr>            <chr>  <chr>         <dbl> <chr> <chr>    <chr> 
+## 1  1035 A00001           Blake~ artist           38 A Fi~ date no~ Water~
+## 2  1036 A00002           Blake~ artist           38 Two ~ date no~ Graph~
+## 3  1037 A00003           Blake~ artist           38 The ~ ?c.1785  Graph~
+## 4  1038 A00004           Blake~ artist           38 Six ~ date no~ Graph~
+## 5  1039 A00005           Blake~ artist           39 The ~ 1826–7,~ Line ~
+## 6  1040 A00006           Blake~ artist           39 Ciam~ 1826–7,~ Line ~
+## # ... with 20 more variables: creditLine <chr>, year <dbl>,
+## #   acquisitionYear <dbl>, dimensions <chr>, width <dbl>, height <dbl>,
+## #   depth <dbl>, units <chr>, inscription <chr>, thumbnailCopyright <lgl>,
+## #   thumbnailUrl <chr>, url.artwork <chr>, name <chr>, gender <chr>,
+## #   dates <chr>, yearOfBirth <dbl>, yearOfDeath <dbl>, placeOfBirth <chr>,
+## #   placeOfDeath <chr>, url.artists <chr>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# finding common columns}
+\NormalTok{idx =}\StringTok{ }\KeywordTok{which}\NormalTok{(}\KeywordTok{colnames}\NormalTok{(artwork) }\OperatorTok{%in%}\StringTok{ }\KeywordTok{colnames}\NormalTok{(artists))}
+\KeywordTok{colnames}\NormalTok{(artwork)[idx]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "artistId"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# diff pre-joint data set}
+\KeywordTok{nrow}\NormalTok{(artists)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3532
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nrow}\NormalTok{(artwork)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 69201
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nrow}\NormalTok{(art)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 69195
+\end{verbatim}
+
+MISSING: Discussions of joining here. Feel encouraged to break up into
+more than once code chunk and discuss each in turn.
+
+\hypertarget{wrangling}{%
+\paragraph{Wrangling}\label{wrangling}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# getting a sense of the dataset}
+\KeywordTok{summarise_all}\NormalTok{(art, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{sum}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(x)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 28
+##      id accession_number artist artistRole artistId title dateText medium
+##   <int>            <int>  <int>      <int>    <int> <int>    <int>  <int>
+## 1     0                0      0          0        0     0        0   6384
+## # ... with 20 more variables: creditLine <int>, year <int>,
+## #   acquisitionYear <int>, dimensions <int>, width <int>, height <int>,
+## #   depth <int>, units <int>, inscription <int>, thumbnailCopyright <int>,
+## #   thumbnailUrl <int>, url.artwork <int>, name <int>, gender <int>,
+## #   dates <int>, yearOfBirth <int>, yearOfDeath <int>, placeOfBirth <int>,
+## #   placeOfDeath <int>, url.artists <int>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(art}\OperatorTok{$}\NormalTok{year)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{index_files/figure-latex/unnamed-chunk-4-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(art}\OperatorTok{$}\NormalTok{year)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##    1545    1817    1831    1867    1953    2012    5397
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \OperatorTok{-}\StringTok{ }\KeywordTok{ecdf}\NormalTok{(art}\OperatorTok{$}\NormalTok{year)(}\DecValTok{1900}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3100881
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# actual wrangling}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"thumbnailUrl"}\NormalTok{, }\StringTok{"otherstuff"}\NormalTok{)}
+
+\NormalTok{art_wrangled =}\StringTok{ }\NormalTok{art }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(is.numeric }\OperatorTok{|}\StringTok{ }\OperatorTok{!}\NormalTok{(}\KeywordTok{contains}\NormalTok{(}\KeywordTok{str_subset}\NormalTok{(x, }
+    \StringTok{"[Url]"}\NormalTok{)) }\OperatorTok{|}\StringTok{ }\KeywordTok{contains}\NormalTok{(}\StringTok{"url"}\NormalTok{) }\OperatorTok{|}\StringTok{ }\KeywordTok{contains}\NormalTok{(}\StringTok{"inscription"}\NormalTok{) }\OperatorTok{|}\StringTok{ }\KeywordTok{contains}\NormalTok{(}\StringTok{"thumbnail"}\NormalTok{) }\OperatorTok{|}\StringTok{ }
+\StringTok{    }\KeywordTok{contains}\NormalTok{(}\StringTok{"dateText"}\NormalTok{) }\OperatorTok{|}\StringTok{ }\KeywordTok{contains}\NormalTok{(}\StringTok{"placeOfDeath"}\NormalTok{) }\OperatorTok{|}\StringTok{ }\KeywordTok{contains}\NormalTok{(}\StringTok{"accession_number"}\NormalTok{) }\OperatorTok{|}\StringTok{ }
+\StringTok{    }\KeywordTok{contains}\NormalTok{(}\StringTok{"dimensions"}\NormalTok{) }\OperatorTok{|}\StringTok{ }\KeywordTok{contains}\NormalTok{(}\StringTok{"creditLine"}\NormalTok{))) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(year }\OperatorTok{>=}\StringTok{ }
+\StringTok{    }\DecValTok{1900} \OperatorTok{&}\StringTok{ }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(yearOfDeath)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{arrange}\NormalTok{(artistId) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{lifespan =}\NormalTok{ yearOfDeath }\OperatorTok{-}\StringTok{ }
+\StringTok{    }\NormalTok{yearOfBirth) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{age =}\NormalTok{ year }\OperatorTok{-}\StringTok{ }\NormalTok{yearOfBirth)}
+
+\NormalTok{art_wrangled}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 11,530 x 20
+##       id artistId  year acquisitionYear width height depth yearOfBirth
+##    <dbl>    <dbl> <dbl>           <dbl> <dbl>  <dbl> <dbl>       <dbl>
+##  1   497        6  1909            1909   660    451    NA        1836
+##  2   582       12  1903            1903  1029    889   489        1828
+##  3   647       15  1905            1905  1219   1829    NA        1832
+##  4  1537       62  1900            1900  1750    490   430        1847
+##  5  1538       62  1906            1906  2102    864   749        1847
+##  6 27325       62  1904            2000    NA     NA    NA        1847
+##  7  1619       66  1914            1918   241    356    NA        1851
+##  8  1620       66  1932            1940   930    660    NA        1851
+##  9  1621       66  1933            1940   457    610    NA        1851
+## 10  1622       67  1923            1924   356    635   305        1856
+## # ... with 11,520 more rows, and 12 more variables: yearOfDeath <dbl>,
+## #   artist <chr>, artistRole <chr>, title <chr>, medium <chr>, units <chr>,
+## #   name <chr>, gender <chr>, dates <chr>, placeOfBirth <chr>, lifespan <dbl>,
+## #   age <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{colnames}\NormalTok{(art_wrangled)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "id"              "artistId"        "year"            "acquisitionYear"
+##  [5] "width"           "height"          "depth"           "yearOfBirth"    
+##  [9] "yearOfDeath"     "artist"          "artistRole"      "title"          
+## [13] "medium"          "units"           "name"            "gender"         
+## [17] "dates"           "placeOfBirth"    "lifespan"        "age"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# table of amount of NA's in each variable}
+\NormalTok{gt =}\StringTok{ }\KeywordTok{gt}\NormalTok{(}\KeywordTok{summarise_all}\NormalTok{(art_wrangled, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{sum}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(x)))) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{tab_header}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Amount of NA's in each Variable"}\NormalTok{)}
+\NormalTok{gt}
+\end{Highlighting}
+\end{Shaded}
+
+\captionsetup[table]{labelformat=empty,skip=1pt}
+\begin{longtable}{cccccccccccccccccccc}
+\caption*{
+\large Amount of NA's in each Variable\\ 
+\small \\ 
+} \\ 
+\toprule
+id & artistId & year & acquisitionYear & width & height & depth & yearOfBirth & yearOfDeath & artist & artistRole & title & medium & units & name & gender & dates & placeOfBirth & lifespan & age \\ 
+\midrule
+0 & 0 & 0 & 10 & 341 & 325 & 10074 & 0 & 0 & 0 & 0 & 0 & 7 & 325 & 0 & 8 & 0 & 255 & 0 & 0 \\ 
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# numerical data summary}
+\NormalTok{numsum =}\StringTok{ }\NormalTok{art_wrangled }\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarise_if}\NormalTok{(is.numeric, }\KeywordTok{funs}\NormalTok{(mean, }
+\NormalTok{    sd, min, max, }\DataTypeTok{nd =}\NormalTok{ n_distinct), }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{numsum_tidy =}\StringTok{ }\NormalTok{numsum }\OperatorTok{%>%}\StringTok{ }\KeywordTok{pivot_longer}\NormalTok{(}\KeywordTok{everything}\NormalTok{(), }\DataTypeTok{names_to =} \KeywordTok{c}\NormalTok{(}\StringTok{".value"}\NormalTok{, }
+    \StringTok{"Stat"}\NormalTok{), }\DataTypeTok{names_pattern =} \StringTok{"(.*)_(.*)"}\NormalTok{)}
+
+\NormalTok{numsum_tidy}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 12
+##   Stat      id artistId   year acquisitionYear width height  depth yearOfBirth
+##   <chr>  <dbl>    <dbl>  <dbl>           <dbl> <dbl>  <dbl>  <dbl>       <dbl>
+## 1 mean  3.15e4    2186. 1958.           1980.   595.   594.   347.      1909. 
+## 2 sd    3.84e4    2680.   24.2            23.2  477.   605.   797.        22.0
+## 3 min   3.00e0       6  1900            1900      3     15      2       1817  
+## 4 max   1.28e5   17450  2009            2013   8915  11900  18290       1967  
+## 5 nd    1.15e4    1294   110             113   1433   1423    446        131  
+## # ... with 3 more variables: yearOfDeath <dbl>, lifespan <dbl>, age <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# categorical data summary}
+\NormalTok{cat =}\StringTok{ }\NormalTok{art_wrangled }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(is.character)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{ncol}\NormalTok{(cat)) \{}
+\NormalTok{    cur =}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{table}\NormalTok{(cat[i]))}
+    \KeywordTok{names}\NormalTok{(cur)[}\KeywordTok{names}\NormalTok{(cur) }\OperatorTok{==}\StringTok{ "Var1"}\NormalTok{] =}\StringTok{ }\KeywordTok{names}\NormalTok{(cat[i])}
+    \KeywordTok{names}\NormalTok{(cur)[}\KeywordTok{names}\NormalTok{(cur) }\OperatorTok{==}\StringTok{ "Freq"}\NormalTok{] =}\StringTok{ "Count"}
+    \KeywordTok{print}\NormalTok{(cur)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                       artist Count
+## 1           Abbott, Berenice     2
+## 2                    Absalon     6
+## 3             Ackling, Roger     1
+## 4       Adams, Harry William     1
+## 5              Adams, Norman     3
+## 6              Adams, Robert    17
+## 7            Adeney, Bernard     1
+## 8              Adler, Jankel     3
+## 9              Adshead, Mary     2
+## 10                Adzak, Roy     1
+## 11                      Afro     1
+## 12              Agar, Eileen     8
+## 13        Aitchison, Craigie     5
+## 14          Ajmone, Giuseppe     1
+## 15             Albers, Josef    22
+## 16            Albright, Ivan     1
+## 17            Aldridge, John     2
+## 18          Alexander, Edwin     1
+## 19      Allan, Julian Phelps     1
+## 20      Allen, George Warner     2
+## 21            Allen, Richard     1
+## 22             Alley, Anthea     1
+## 23          Allinson, Adrian     1
+## 24 Alma-Tadema, Sir Lawrence     1
+## 25              Altoon, John     1
+## 26               Amiet, Cuno     2
+## 27        Amuchastegui, Axel     1
+## 28         Andreenko, Michel     1
+## 29          Andrews, Michael     5
+## 30              Anrep, Boris     2
+## 31              Appel, Karel     7
+## 32         Appelbee, Leonard     4
+## 33           Appleyard, Fred     1
+## 34          Arakawa, Shusaku     1
+## 35              Arbus, Diane    69
+## 36     Archipenko, Alexander     1
+## 37         Ardizzone, Edward    16
+## 38           Ardon, Mordecai     1
+## 39           Arikha, Avigdor     9
+## 40                     Arman     2
+## 41   Armfield, Maxwell Ashby     2
+## 42         Armitage, Kenneth    14
+## 43      Armstead, Henry Hugh     1
+## 44           Armstrong, John     4
+## 45             Arnatt, Keith   133
+## 46                 Arp, Jean     9
+## 47 Art & Language (Ian Burn)     1
+## 48      Artschwager, Richard     6
+## 49             Askew, Victor     1
+## 50        Atkinson, Lawrence     1
+##  [ reached 'max' / getOption("max.print") -- omitted 1243 rows ]
+##          artistRole Count
+## 1             after     1
+## 2 and other artists     1
+## 3            artist 11527
+## 4       follower of     1
+##                                                                                                                                              title
+## 1                                                                                                                                             -12°
+## 2                                                                                                                                           ! 1971
+## 3                                                                                                                   ... Ce qu’a Vu le Vent d’Ouest
+## 4                                                                                                            ‘1. Wochenend- Austellung’. Frankfurt
+## 5                                                                                                                             ‘45 ff '. Düsseldorf
+## 6                                                                                                                     ‘AAH!’ in perspective (1963)
+## 7                                                                                                                   ‘Am I the Object Which I See?’
+## 8                                                                                                             ‘ART D’AUJOURD’HUI’. Kunst van Heden
+## 9                                   ‘Avant Garde Art: What’s Going Up in the 80’s?’. Edinburgh International Festival, The Richard Demarco Gallery
+## 10                                                                                              ‘beuys hat den hut nicht zu nehmen er hat ihn auf’
+## 11                                                                                        ‘By What Geometry Must We Construct the Physical World?’
+## 12                                                                                                                    ‘By what means can we know?’
+## 13                                                                                                                          ‘Deep inside I looked’
+## 14                                                                                           ‘Die Kontroverse um die Menschen Rechte’. Documenta 6
+## 15                                                                                                         ‘Do not go gentle into that good night’
+## 16                                                                                                                                ‘Franko’ Amsterd
+## 17                                                                                    ‘Hell’, Drawing by Yaparí, Guaraní Aborigine + Set of Scales
+## 18                                                                            ‘Hommage à Joseph Beuys’. University and Landesbibliothek Düsseldorf
+## 19                                                                                       ‘I’m afraid I ought to nominate him for the Goethe Award’
+## 20                                      ‘Infernal Tortures’ from the Book ‘Grant Kalendrier des Bergieres’ + Officer Saluting (Photo: Tony Valdez)
+## 21                                                                      ‘Justice’ by Rogelio Irurtia + ‘The Seven Apocalyptical Trumpets’ by Dürer
+## 22                                                                                                                    ‘Man Goeth to his Long Home’
+## 23                                                                                                                        ‘Monument’ for V. Tatlin
+## 24                                                                                                                                 ‘No More Twist’
+## 25                                               ‘nothing against modern playwrights but who turned a Threepenny Opera into a million dollar hit.’
+## 26                                                                                                                           ‘Quiet is the Island’
+## 27                                                                                                                       ‘Rettet die Wahner Heide’
+## 28                                                                                                        ‘Suffer Little Children to Come unto Me’
+## 29                                                                                                       ‘The Deluge’ by Doré + Army Officer’s Cap
+## 30                                                                      ‘The Deluge’ by Doré, 1860 + Military Junta (Photo: Public Records Office)
+## 31                                                                ‘The Disasters of War’, Goya, 1810 + ‘The Apocalypse of St John’, Dürer, c. 1500
+## 32 ‘The Four Avenging Angels of Euphrates’, Dürer, c. 1500 + ‘The Departure of the Warrior’, by Amo Broker, Sculptor from the Third Reich, c. 1939
+## 33                                                                                        ‘The Hold House Port Mear Square Island Port Mear Beach’
+## 34                                                                            ‘The Inferno’ by P. de Limbourg + Jorge Videla and Cardinal Aramburu
+## 35                                                                    ‘The Last Judgement’ by Brueghel + Cross with Videla and Cardinal Quarracino
+## 36                                                  ‘The Statue of Liberty’ by Dubourdieu + ‘Demons Torturing Sorceresses’ by Thomas Darling, 1597
+## 37                                                                                                                           ‘The Tear that Falls’
+## 38                                                                                                                  ‘The Windmill’, Clapham Common
+## 39                                                                                                              ‘The Withered Root’ by Rhys Davies
+## 40                                                                                                     ‘This is Ludwig van Beathoven, Radio Bonn.’
+## 41                                                                                                                        ‘When the Curtain Falls’
+## 42                                                                                                                            ‘Where is My Twist?’
+## 43                                                                                                                              “A Hand of Bridge”
+## 44                                                                                                       “Gust of Wind” falling leaves (1st State)
+## 45                                                                                                                               “Pistols for Two”
+## 46                                                                                                                        “The Nation’s Nightmare”
+## 47                                                                                                                            “The Runaway Pigeon”
+## 48                                                                                                                            “The Summer Dancers”
+## 49                                                                                                          “The Wonderful World of Fleming Joffe”
+## 50                                                                                                                              “Town and Country”
+##    Count
+## 1      1
+## 2      1
+## 3      1
+## 4      1
+## 5      1
+## 6      1
+## 7      1
+## 8      1
+## 9      1
+## 10     1
+## 11     1
+## 12     1
+## 13     1
+## 14     1
+## 15     1
+## 16     1
+## 17     1
+## 18     1
+## 19     1
+## 20     1
+## 21     1
+## 22     1
+## 23     1
+## 24     1
+## 25     1
+## 26     1
+## 27     1
+## 28     1
+## 29     1
+## 30     1
+## 31     1
+## 32     1
+## 33     1
+## 34     1
+## 35     1
+## 36     1
+## 37     1
+## 38     1
+## 39     1
+## 40     1
+## 41     1
+## 42     1
+## 43     1
+## 44     1
+## 45     1
+## 46     1
+## 47     3
+## 48     2
+## 49     1
+## 50     1
+##  [ reached 'max' / getOption("max.print") -- omitted 9174 rows ]
+##                                                                                   medium
+## 1                          10 photographs, gelatin silver print on paper and neon lights
+## 2        11 works on panel, photographs, gelatin silver print on paper, graphite and ink
+## 3                                                                12 lithographs on paper
+## 4                                                                    12 mirrors and tape
+## 5                                      12 photographic prints, on paper mounted on board
+## 6        13 sheets of printed paper, paper and plastic cover and detachable plastic grip
+## 7                                                    19 cards on paper and cardboard box
+## 8                                                            19 works on paper, graphite
+## 9                                                               2 boards, zinc and glass
+## 10                                2 digital prints on paper mounted onto aluminium panel
+## 11                        2 light bulbs, 2 porcelain light sockets and 2 electric cables
+## 12                                              2 lithographs and 1 screenprint on paper
+## 13                                                                2 lithographs on paper
+## 14                                         2 maps, 5 photographs and typescript on board
+## 15                                             2 paper bags, graphite and stamp on glass
+## 16                                             2 photographs, colour, Polaroid, on paper
+## 17                                          2 photographs, gelatin silver print on paper
+## 18 2 photographs, gelatin silver print on paper mounted onto paper and graphite on paper
+## 19                                                               2 screenprints on paper
+## 20                                                       2 transparencies on light boxes
+## 21                            2 works on board, paper, acrylic paint, ink and silkscreen
+## 22                                                            2 works on card, oil paint
+## 23                                               2 works on card, oil paint and graphite
+## 24                                         2 works on fabric, lithograph and screenprint
+## 25          2 works on paper, graphite, gouache and 3 works on chipboard, feather, straw
+## 26                                                           2 works on paper, oil paint
+## 27                                                   2 works on paper, oil paint and fat
+## 28                                              2 works on paper, oil paint and graphite
+## 29                                2 works on paper, oil paint, graphite and masking tape
+## 30                                                   2 works on printed paper, oil paint
+## 31                                         25 photographs, gelatin silver print on paper
+## 32                                          3 photographs, gelatin silver print on paper
+## 33                                 3 works on board, acrylic paint, oil paint and pastel
+## 34                                                       3 works on hardboard, oil paint
+## 35                                                  3 works on paper, graphite, on board
+## 36                                           3 works on paper, oil paint and watercolour
+## 37                                                 3 works on paper, oil paint, on board
+## 38                                                     3 works on plywood, acrylic paint
+## 39                                             37 works on paper, ink and printed papers
+## 40                                                       4 foil embossed prints on paper
+## 41                                              4 photographs, black and white, on paper
+## 42                                          4 photographs, gelatin silver print on paper
+## 43      4 photographs, gelatin silver print on paper mounted onto paper and ink on paper
+## 44                              4 photographs, gelatine silver print on paper and thread
+## 45                                                      4 screenprints on wrapping paper
+## 46                                                          4 works on blackboard, chalk
+## 47                                                  4 works on paper, graphite and paper
+## 48                                         4 works on paper, oil paint and fat, on board
+## 49                                                   4 works on printed paper, oil paint
+## 50                                                      400 postcards and filing cabinet
+##    Count
+## 1      1
+## 2      1
+## 3      1
+## 4      1
+## 5      1
+## 6      1
+## 7      1
+## 8      1
+## 9      1
+## 10     1
+## 11     1
+## 12     1
+## 13     4
+## 14     1
+## 15     1
+## 16     2
+## 17     3
+## 18     1
+## 19     1
+## 20     1
+## 21     1
+## 22     1
+## 23     1
+## 24     1
+## 25     1
+## 26     1
+## 27     1
+## 28     1
+## 29     1
+## 30     1
+## 31     1
+## 32     3
+## 33     1
+## 34     1
+## 35     1
+## 36     1
+## 37     1
+## 38     1
+## 39     1
+## 40     1
+## 41     1
+## 42     1
+## 43     1
+## 44     8
+## 45     1
+## 46     1
+## 47     1
+## 48     1
+## 49     1
+## 50     1
+##  [ reached 'max' / getOption("max.print") -- omitted 1355 rows ]
+##   units Count
+## 1    mm 11205
+##                         name Count
+## 1           Abbott, Berenice     2
+## 2                    Absalon     6
+## 3             Ackling, Roger     1
+## 4       Adams, Harry William     1
+## 5              Adams, Norman     3
+## 6              Adams, Robert    17
+## 7            Adeney, Bernard     1
+## 8              Adler, Jankel     3
+## 9              Adshead, Mary     2
+## 10                Adzak, Roy     1
+## 11                      Afro     1
+## 12              Agar, Eileen     8
+## 13        Aitchison, Craigie     5
+## 14          Ajmone, Giuseppe     1
+## 15             Albers, Josef    22
+## 16            Albright, Ivan     1
+## 17            Aldridge, John     2
+## 18          Alexander, Edwin     1
+## 19      Allan, Julian Phelps     1
+## 20      Allen, George Warner     2
+## 21            Allen, Richard     1
+## 22             Alley, Anthea     1
+## 23          Allinson, Adrian     1
+## 24 Alma-Tadema, Sir Lawrence     1
+## 25              Altoon, John     1
+## 26               Amiet, Cuno     2
+## 27        Amuchastegui, Axel     1
+## 28         Andreenko, Michel     1
+## 29          Andrews, Michael     5
+## 30              Anrep, Boris     2
+## 31              Appel, Karel     7
+## 32         Appelbee, Leonard     4
+## 33           Appleyard, Fred     1
+## 34          Arakawa, Shusaku     1
+## 35              Arbus, Diane    69
+## 36     Archipenko, Alexander     1
+## 37         Ardizzone, Edward    16
+## 38           Ardon, Mordecai     1
+## 39           Arikha, Avigdor     9
+## 40                     Arman     2
+## 41   Armfield, Maxwell Ashby     2
+## 42         Armitage, Kenneth    14
+## 43      Armstead, Henry Hugh     1
+## 44           Armstrong, John     4
+## 45             Arnatt, Keith   133
+## 46                 Arp, Jean     9
+## 47 Art & Language (Ian Burn)     1
+## 48      Artschwager, Richard     6
+## 49             Askew, Victor     1
+## 50        Atkinson, Lawrence     1
+##  [ reached 'max' / getOption("max.print") -- omitted 1243 rows ]
+##   gender Count
+## 1 Female  1062
+## 2   Male 10460
+##        dates Count
+## 1  1817–1904     1
+## 2  1828–1905     1
+## 3  1830–1903     3
+## 4  1832–1911     1
+## 5  1834–1917     2
+## 6  1835–1921     1
+## 7  1836–1912     1
+## 8  1836–1919     1
+## 9  1837–1911     1
+## 10 1839–1906     2
+## 11 1839–1907     1
+## 12 1840–1917     4
+## 13 1841–1917     1
+## 14 1841–1919     5
+## 15 1841–1923     2
+## 16 1841–1927     1
+## 17 1842–1908     1
+## 18 1843–1911     1
+## 19 1843–1927     1
+## 20 1844–1910     1
+## 21 1844–1913     1
+## 22 1844–1933     6
+## 23 1845–1908     1
+## 24 1845–1932     4
+## 25 1846–1912     1
+## 26 1847–1910     1
+## 27 1847–1922     3
+## 28 1847–1926     1
+## 29 1847–1935     3
+## 30 1848–1917     3
+## 31 1849–1906     1
+## 32 1849–1914     1
+## 33 1849–1933     2
+## 34 1850–1902     1
+## 35 1850–1925     2
+## 36 1850–1934     1
+## 37 1851–1906     2
+## 38 1851–1929     2
+## 39 1851–1941     3
+## 40 1852–1930     2
+## 41 1852–1931     2
+## 42 1852–1944    13
+## 43 1853–1928     1
+## 44 1854–1921     9
+## 45 1854–1934     2
+## 46 1854–1935     1
+## 47 1855–1927     1
+## 48 1855–1928     1
+## 49 1855–1942    11
+## 50 1856–1921     2
+##  [ reached 'max' / getOption("max.print") -- omitted 1084 rows ]
+##                                 placeOfBirth Count
+## 1                   Aberdeen, United Kingdom     6
+## 2                    Aberdeen, United States    74
+## 3                Abergavenny, United Kingdom     1
+## 4                    Abinger, United Kingdom    85
+## 5                      Acton, United Kingdom     6
+## 6                 Addlestone, United Kingdom     1
+## 7                        Adelaide, Australia    10
+## 8                    Aix-en-Provence, France     2
+## 9                       Akron, United States     1
+## 10                     Al-Iskandariyah, Misr     5
+## 11                          Al-Qahirah, Misr     4
+## 12                           Alberta, Canada     1
+## 13                   Alnwick, United Kingdom     1
+## 14                     Altmar, United States     2
+## 15                Altrincham, United Kingdom     1
+## 16                     Amersfoort, Nederland     5
+## 17                           Amherst, Canada    24
+## 18                      Amsterdam, Nederland    45
+## 19                  Ann Arbor, United States     2
+## 20                Anstruther, United Kingdom     1
+## 21                         Antwerpen, België    15
+## 22                       Apolda, Deutschland     3
+## 23                             Arad, România     1
+## 24                          Argentan, France    12
+## 25                        Argenteuil, France    14
+## 26                                   Armenia     1
+## 27                Aschaffenburg, Deutschland     1
+## 28                  Asheville, United States     3
+## 29                  Ashtabula, United States     1
+## 30                  Aspatria, United Kingdom     3
+## 31                            Athínai, Ellás     4
+## 32                     Auburn, United States     2
+## 33                     Auckland, New Zealand     1
+## 34                                 Australia    10
+## 35                                   Auteuil     6
+## 36                           Auxerre, France     3
+## 37                       Ayacucho, Argentina     8
+## 38                 Aylesbury, United Kingdom     1
+## 39                  Bacchus Marsh, Australia     1
+## 40                Bad Kreuznach, Deutschland     4
+## 41                          Bagheria, Italia     6
+## 42 Baltimore Independent City, United States     5
+## 43                         Bangalore, Bharat     9
+## 44                  Banstead, United Kingdom     1
+## 45                   Banyuls-sur-Mer, France     3
+## 46                         Barcelona, España    76
+## 47                              Bari, Italia     1
+## 48                    Barnes, United Kingdom    27
+## 49                      Bath, United Kingdom     3
+## 50                    Battle, United Kingdom     1
+##  [ reached 'max' / getOption("max.print") -- omitted 616 rows ]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# performing grouping to generate new summary statistics}
+\NormalTok{art_grouped =}\StringTok{ }\NormalTok{art_wrangled }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(gender, artistRole)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# table of amount of NA's in each variable}
+\NormalTok{gt =}\StringTok{ }\KeywordTok{gt}\NormalTok{(}\KeywordTok{summarise_all}\NormalTok{(art_grouped, }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{sum}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(x)))) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{tab_header}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Amount of NA's in each Variable afet grouping"}\NormalTok{)}
+\NormalTok{gt}
+\end{Highlighting}
+\end{Shaded}
+
+\captionsetup[table]{labelformat=empty,skip=1pt}
+\begin{longtable}{lcccccccccccccccccc}
+\caption*{
+\large Amount of NA's in each Variable afet grouping\\ 
+\small \\ 
+} \\ 
+\toprule
+artistRole & id & artistId & year & acquisitionYear & width & height & depth & yearOfBirth & yearOfDeath & artist & title & medium & units & name & dates & placeOfBirth & lifespan & age \\ 
+\midrule
+\multicolumn{1}{l}{Female} \\ 
+\midrule
+and other artists & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+artist & 0 & 0 & 0 & 0 & 26 & 26 & 871 & 0 & 0 & 0 & 0 & 0 & 26 & 0 & 0 & 33 & 0 & 0 \\ 
+\midrule
+\multicolumn{1}{l}{Male} \\ 
+\midrule
+after & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+artist & 0 & 0 & 0 & 10 & 311 & 295 & 9193 & 0 & 0 & 0 & 0 & 7 & 295 & 0 & 0 & 215 & 0 & 0 \\ 
+follower of & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+\midrule
+\multicolumn{1}{l}{NA} \\ 
+artist & 0 & 0 & 0 & 0 & 4 & 4 & 8 & 0 & 0 & 0 & 0 & 0 & 4 & 0 & 0 & 7 & 0 & 0 \\ 
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# grouped numerical data summary}
+\NormalTok{numsum2 <-}\StringTok{ }\NormalTok{art_grouped }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(is.numeric }\OperatorTok{|}\StringTok{ }\NormalTok{gender }\OperatorTok{|}\StringTok{ }\NormalTok{artistRole) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{summarise_all}\NormalTok{(}\KeywordTok{funs}\NormalTok{(mean, sd, min, max, }\DataTypeTok{nd =}\NormalTok{ n_distinct), }
+        \DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+
+\NormalTok{numsum_tidy2 =}\StringTok{ }\NormalTok{numsum2 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{pivot_longer}\NormalTok{(}\OperatorTok{!}\KeywordTok{c}\NormalTok{(gender, artistRole), }
+    \DataTypeTok{names_to =} \KeywordTok{c}\NormalTok{(}\StringTok{".value"}\NormalTok{, }\StringTok{"Stat"}\NormalTok{), }\DataTypeTok{names_pattern =} \StringTok{"(.*)_(.*)"}\NormalTok{)}
+
+\NormalTok{numsum_tidy2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 30 x 14
+## # Groups:   gender [3]
+##    gender artistRole Stat       id artistId   year acquisitionYear width height
+##    <chr>  <chr>      <chr>   <dbl>    <dbl>  <dbl>           <dbl> <dbl>  <dbl>
+##  1 Female and other~ mean   27075     5225  1959            2000    287    181 
+##  2 Female and other~ sd        NA       NA    NA              NA     NA     NA 
+##  3 Female and other~ min    27075     5225  1959            2000    287    181 
+##  4 Female and other~ max    27075     5225  1959            2000    287    181 
+##  5 Female and other~ nd         1        1     1               1      1      1 
+##  6 Female artist     mean   31690.    2724. 1959.           1982.   596.   583.
+##  7 Female artist     sd     39086.    3141.   24.1            22.9  506.   587.
+##  8 Female artist     min      220      219  1900            1908     60     62 
+##  9 Female artist     max   127717    17414  2008            2013   8915  10236 
+## 10 Female artist     nd      1061      183   105              90    485    490 
+## # ... with 20 more rows, and 5 more variables: depth <dbl>, yearOfBirth <dbl>,
+## #   yearOfDeath <dbl>, lifespan <dbl>, age <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# summarise_all(art_grouped, function(x) sum(is.na(x)))}
+\end{Highlighting}
+\end{Shaded}
+
+MISSING: grouped categorical data summary
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# grouped categorical data summary}
+
+\NormalTok{cat =}\StringTok{ }\NormalTok{art_grouped }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(is.character)}
+
+\NormalTok{cat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 11,530 x 9
+## # Groups:   gender, artistRole [6]
+##    artist   artistRole title   medium   units name    gender dates placeOfBirth 
+##    <chr>    <chr>      <chr>   <chr>    <chr> <chr>   <chr>  <chr> <chr>        
+##  1 Alma-Ta~ artist     A Favo~ Oil on ~ mm    Alma-T~ Male   1836~ Dronrijp, Ne~
+##  2 Armstea~ artist     Remorse Marble   mm    Armste~ Male   1828~ London, Unit~
+##  3 Aumonie~ artist     The Bl~ Oil pai~ mm    Aumoni~ Male   1832~ <NA>         
+##  4 Brock, ~ artist     Eve     Marble   mm    Brock,~ Male   1847~ Worcester, U~
+##  5 Brock, ~ artist     Thomas~ Marble   mm    Brock,~ Male   1847~ Worcester, U~
+##  6 Brock, ~ artist     Sir Jo~ Bronze   <NA>  Brock,~ Male   1847~ Worcester, U~
+##  7 Brown, ~ artist     Landsc~ Waterco~ mm    Brown,~ Male   1851~ Chelmsford, ~
+##  8 Brown, ~ artist     Portra~ Oil pai~ mm    Brown,~ Male   1851~ Chelmsford, ~
+##  9 Brown, ~ artist     The Iv~ Oil pai~ mm    Brown,~ Male   1851~ Chelmsford, ~
+## 10 Brown, ~ artist     Ju-Jit~ Bronze   mm    Brown,~ Male   1856~ Glasgow, Uni~
+## # ... with 11,520 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# for(i in 1:ncol(cat)) \{ cur = as.data.frame(table(cat[i]))}
+\CommentTok{# names(cur)[names(cur) == 'Var1'] = names(cat[i])}
+\CommentTok{# names(cur)[names(cur) == 'Freq'] = 'Count' print(cur) \}}
+\end{Highlighting}
+\end{Shaded}
+
+MISSING: Your discussion of wrangling section here. Feel encouraged to
+break up into more than once code chunk and discuss each in turn.
+
+\hypertarget{visualizing}{%
+\paragraph{Visualizing}\label{visualizing}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{art_wrangled }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(artist) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(yearOfBirth, lifespan, gender) }\OperatorTok{%>%}
+\StringTok{  }\NormalTok{na.omit }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ yearOfBirth, }\DataTypeTok{y =}\NormalTok{ lifespan)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =} \KeywordTok{factor}\NormalTok{(gender))) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}
+    \DataTypeTok{method =}\NormalTok{ lm,}
+    \DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{,}
+    \CommentTok{# stat = "summary",}
+    \DataTypeTok{level =} \FloatTok{0.8}\NormalTok{,}
+    \DataTypeTok{col =} \StringTok{'purple'}\NormalTok{, }
+    \DataTypeTok{size =} \FloatTok{0.5}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{title =} \StringTok{"Correlation between Birth Year and Life Span of Artists"}\NormalTok{,}
+    \DataTypeTok{x =} \StringTok{"Artist Birth Year"}\NormalTok{,}
+    \DataTypeTok{y =} \StringTok{"Artist Life Span"}\NormalTok{, }
+    \DataTypeTok{color =} \StringTok{"Artist Gender"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \KeywordTok{rel}\NormalTok{(}\FloatTok{1.4}\NormalTok{))) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{1810}\NormalTok{, }\DecValTok{1970}\NormalTok{, }\DataTypeTok{by =} \DecValTok{20}\NormalTok{)) }\OperatorTok{+}
+\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{1810}\NormalTok{, }\DecValTok{1970}\NormalTok{, }\DataTypeTok{by =} \DecValTok{20}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{index_files/figure-latex/unnamed-chunk-11-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# creating country variable}
+\NormalTok{df2 =}\StringTok{ }\NormalTok{art_wrangled}
+\CommentTok{# not quite sure why I was not able to achieve this with}
+\CommentTok{# mutate(); failed implementation -> mutate(country =}
+\CommentTok{# str_split(placeOfBirth, ',')[[1]][2])}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(df2)) \{}
+\NormalTok{    df2}\OperatorTok{$}\NormalTok{country[i] =}\StringTok{ }\KeywordTok{str_split}\NormalTok{(df2}\OperatorTok{$}\NormalTok{placeOfBirth[i], }\StringTok{","}\NormalTok{)[[}\DecValTok{1}\NormalTok{]][}\DecValTok{2}\NormalTok{]}
+\NormalTok{\}}
+
+\NormalTok{df2 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(country) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }\NormalTok{na.omit }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{slice_max}\NormalTok{(n, }\DataTypeTok{n =} \DecValTok{10}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(n)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{reorder}\NormalTok{(country, }
+    \OperatorTok{-}\NormalTok{n), }\DataTypeTok{y =}\NormalTok{ n)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_bar}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =} \KeywordTok{factor}\NormalTok{(country)), }\DataTypeTok{stat =} \StringTok{"summary"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{index_files/figure-latex/unnamed-chunk-12-1} \end{center}
+
+Your discussion of plot 1
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 11,530 x 21
+##       id artistId  year acquisitionYear width height depth yearOfBirth
+##    <dbl>    <dbl> <dbl>           <dbl> <dbl>  <dbl> <dbl>       <dbl>
+##  1   497        6  1909            1909   660    451    NA        1836
+##  2   582       12  1903            1903  1029    889   489        1828
+##  3   647       15  1905            1905  1219   1829    NA        1832
+##  4  1537       62  1900            1900  1750    490   430        1847
+##  5  1538       62  1906            1906  2102    864   749        1847
+##  6 27325       62  1904            2000    NA     NA    NA        1847
+##  7  1619       66  1914            1918   241    356    NA        1851
+##  8  1620       66  1932            1940   930    660    NA        1851
+##  9  1621       66  1933            1940   457    610    NA        1851
+## 10  1622       67  1923            1924   356    635   305        1856
+## # ... with 11,520 more rows, and 13 more variables: yearOfDeath <dbl>,
+## #   artist <chr>, artistRole <chr>, title <chr>, medium <chr>, units <chr>,
+## #   name <chr>, gender <chr>, dates <chr>, placeOfBirth <chr>, lifespan <dbl>,
+## #   age <dbl>, country <chr>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# df2 %>% group_by(year) %>% summarise(n = n()) df2 %>%}
+\CommentTok{# ggplot(aes(x = country, y = ))}
+\end{Highlighting}
+\end{Shaded}
+
+Your discussion of plot 2
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# your plot 3}
+\end{Highlighting}
+\end{Shaded}
+
+Your discussion of plot 3
+
+\hypertarget{concluding-remarks}{%
+\paragraph{Concluding Remarks}\label{concluding-remarks}}
+
+If any!
+
+\end{document}

@@ -1,0 +1,286 @@
+---
+title: 'Project 1: Wrangling, Exploration, Visualization'
+author: "SDS322E"
+date: ''
+output:
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
+  pdf_document:
+    toc: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, fig.align = "center", warning = F, message = F,
+tidy=TRUE, tidy.opts=list(width.cutoff=60), R.options=list(max.print=100))
+
+library(plyr)
+library(dplyr)
+library(stringr)
+library(tidyr)
+library(gt)
+library(ggplot2)
+```
+
+## Data Wrangling, Exploration, Visualization
+
+### Chenyue Xu; EID: cx2436
+
+#### Introduction 
+
+The datasets `artists` and  `artwork` here were compiled by the github repository https://github.com/rfordatascience/tidytuesday, and came from the Tate Art Museum github repository. It contains the metadata for around 70,000 artworks, and more than 3,000 artists.
+
+The `artwork` dataset includes variables that help identify the art pieces such as _id_, _artistId_, _title_, variables that detail physical properties of the artpieces such as _width_, _height_, _depth_, and also background information about the artpieces such as _year_, _inscription_, _medium_.
+
+The `artist` data set contains information that identifies the artists, like variables _name_, _id_, but also their biographical information such as _gender_, _yearOfBirth_, _yearOfDeath_, _placeOfBirth_, _placeOfDeath_.
+
+These datasets were interesting to me because they pertain to a subject not often investigated by data science, and by investigating them, I am hoping to uncover patterns like correlations between quantitative properties of the artwork and qualitative properties of the artwork or artist. 
+
+There are going to be trivial association between artists' birth years and the dates of their work, etc, but I am hoping to find out more interesting information in the following sections.
+
+```{R}
+artwork <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-12/artwork.csv')
+artists <- readr::read_csv("https://github.com/tategallery/collection/raw/master/artist_data.csv")
+```
+
+#### Tidying: Reshaping
+
+Reshaping methods are used in the Wrangling section to organize summary statistics.
+
+#### Joining/Merging
+
+```{R}
+# resolving naming conflict/unify name of joining variable
+names(artists)[names(artists) == 'id'] <- 'artistId'
+names(artists)[names(artists) == 'url'] <- 'artistsUrl'
+names(artwork)[names(artwork) == 'url'] <- 'artworkUrl'
+# actual joining
+art = inner_join(artwork, artists, by = 'artistId')
+
+```
+I chose to use `inner_join` in this case, since I want to be able to investigate the relationship between artist and their artwork. Therefore, through the joining process, I wanted to exclude rows where either the artwork or the artist side of an observation is missing.
+
+```{r}
+# diff pre-joint data set
+n_artist = nrow(artists)
+n_artwork = nrow(artwork)
+n_art = nrow(art)
+
+# finding common columns
+idx = which(colnames(artwork) %in% colnames(artists))
+common_cols = colnames(artwork)[idx]
+```
+
+Prior to joining, there were 69201 rows in total in `artwork`, and 3532 in `artists`; after `inner_join`, there are 69195 tows in the resulting dataset.
+
+This means the joint dataset is larger than the original `artists` dataset, but is smaller than the original `artwork` dataest. It also indicates 3538 rows were dropped during joining; the potential problem is that our analysis will not be able to fully represent the whole Tate Museum Collection of artworks, however, I believe this problem would not have a big impact in our analysis, since the dropped rows only constitute approximately 4.9% of the total observations.
+
+The columns that appear both in `artwork` and `artists` prior to joining were _artistId_, and a column named _name_ in `artists`, and _artist_ in `artwork`, which contains the name of the artist of an artwork. (This redundency will be addressed in the Wrangling section)
+
+The columns in `artwork` not present in `artists` are _id_, _accession_number_, _artist_, _artistRole_, _title_, _dateText_, _medium_, _creditLine_, _year_, _acquisitionYear_, _dimensions_, _width_, _height_, _depth_, _units_, _inscription_, _thumbnailCopyright_, _thumbnailUrl_, _url.artwork_.
+
+
+The columns in `artists` not present in `artwork` are _artistId_, _name_, _gender_, _dates_, _yearOfBirth_, _yearOfDeath_, _placeOfBirth_, _placeOfDeath_, _url.artists_.
+
+
+####  Wrangling
+
+We begin by getting a sense of the data set through the following information,
+
+```{r}
+gt(summarise_all(art, function(x) sum(is.na(x)))) %>%
+  tab_header(title = "Amount of NA's in each Variable")
+art %>% ggplot(aes(x = year)) +
+  geom_histogram() +
+  labs(title = "Distribution of artworks by Year")
+(1 - ecdf(art$year)(1800))*100
+```
+Through the above information we learned several things to keep in mind while wrangling. 
+
+Firstly, using`summarise_all` with an embedded custom function, we see that many variables contain mostly `NA` values, which helps inform which columns to select out, as they contain little to no useful information for analysis.
+
+Secondly, the histogram shows us that the dataset has a heavy left-skew in `year`, which then prompts me to investigate in the following line, what percentage of our dataset we would be preserving if we filter out observations that predated the arbitrary year 1800.
+
+Lastly, the result of this investigation informs me, observations that predate the year 1800 only constitute 7.255713% of our dataset, leaving 92.74429% of observations if this filtering took place. 
+
+```{r}
+# actual wrangling
+art_wrangled = art %>% 
+  select( is.numeric | !( contains("Url") | contains("inscription") | contains("thumbnail") | contains("dateText") | contains("placeOfDeath") | contains("accession_number") | contains("dimensions") | contains("creditLine") | contains("depth") | contains("dates") | contains("name")  ) ) %>%
+  filter(year >= 1900) %>%
+  arrange(artistId) %>%
+  mutate(lifespan = yearOfDeath - yearOfBirth) %>%
+  mutate(age = year - yearOfBirth)
+
+gt(summarise_all(art_wrangled, function(x) sum(is.na(x)))) %>%
+  tab_header(title = "Amount of NA's in each Variable")
+art_wrangled %>% ggplot(aes(x = year)) +
+  geom_histogram() +
+  labs(title = "Distribution of artworks by Year")
+```
+After implementing planned changes, we use similar benchmarks to evaluate their effects. The results seem much more helpful for our proposed ongoing analyses (note the persistent column `depth`, which despite the correct application of `select` function is still attached to the dataframe; we will be dropping it later when specific operations are applied in preparation for specific visualizations).
+
+After producing the dataset we will be working with, we also want to find out its properties, for which we will generate summary statistics such as the following:
+
+
+The tables below detail the summary statistics for selected numerical variables; 
+
+```{r}
+# table of amount of NA's in each variable
+gt = gt(summarise_all(art_wrangled, function(x) sum(is.na(x)))) %>%
+  tab_header(title = "Amount of NA's in each Variable")
+gt
+
+# numerical data summary
+numsum = art_wrangled %>%
+  select(is.numeric & !(contains("id"))) %>%
+  summarise_all(funs(mean, sd, min, max, nd = n_distinct), na.rm = TRUE)
+
+numsum_tidy = numsum %>% 
+  pivot_longer(
+    everything(),    
+    names_to = c(".value", "Stat"),
+    names_pattern = "(.*)_(.*)")
+
+gt(numsum_tidy)
+```
+
+The tables below detail the summary statistics for selected categorical variables, 
+
+```{r}
+# categorical data summary
+cat = art_wrangled %>% 
+  select(is.character & !(contains("unit")) )
+
+
+# for(i in 1:ncol(cat)) {
+#   cur = as.data.frame(table(cat[i]))
+#   names(cur)[names(cur) == 'Var1'] = names(cat[i])
+#   names(cur)[names(cur) == 'Freq'] = "Count"
+#   print(cur)
+# }
+
+c2 = as.data.frame(table(cat[2]))
+names(c2)[names(c2) == 'Var1'] = names(cat[2])
+names(c2)[names(c2) == 'Freq'] = "Count"
+gt(c2)
+
+c5 = as.data.frame(table(cat[5]))
+names(c5)[names(c5) == 'Var1'] = names(cat[5])
+names(c5)[names(c5) == 'Freq'] = "Count"
+gt(c5)
+
+```
+
+
+```{r}
+# performing grouping to generate new grouped summary statistics
+art_grouped = art_wrangled %>%
+  group_by(gender, artistRole)
+
+# grouped numerical data summary
+numsum2 <- art_grouped %>%
+  select((is.numeric& !(contains("id"))) | gender | artistRole) %>%
+  summarise_all(funs(mean, sd, min, max, nd = n_distinct), na.rm = TRUE)
+
+numsum_tidy2 = numsum2 %>% pivot_longer(!c(gender, artistRole),
+              names_to = c(".value", "Stat"),
+              names_pattern = "(.*)_(.*)")
+
+gt(numsum_tidy2)
+```
+
+#### Visualizing
+
+```{r}
+art_wrangled %>%
+  group_by(artist) %>%
+  select(yearOfBirth, lifespan, gender, age, year ) %>%
+  na.omit %>%
+  ggplot(aes(x = yearOfBirth, y = lifespan)) +
+  geom_point(aes(color = factor(gender))) +
+  geom_smooth(
+    # method = lm,
+    se = FALSE,
+    # stat = "summary",
+    level = 0.8,
+    col = 'purple', 
+    size = 0.5) +
+  labs(
+    title = "Correlation between Birth Year and Life Span of Artists",
+    x = "Artist Birth Year",
+    y = "Artist Life Span", 
+    color = "Artist Gender") + 
+  theme(plot.title = element_text(size = rel(1.4))) +
+  scale_x_continuous(breaks = seq(1810, 1970, by = 20)) +
+  scale_y_continuous(breaks = seq(0, 110, by = 10))
+```
+In this visualization, we have scatter points representing the correlation between the birth year of an artist, and their lifespan calculated from their biographical information (originally from `artists`). Unexpectedly, we see a unsteadily declining trend in the artists' birth year and their life span; this could be due to the fact that we have a biased dataset, either from only analyzing individuals from the Tate Art Collection, or having reduced the dataset improperly. However, it is likely that this is the actual trend in the dataset as well -- that life span of Tate Collection Artists experience little to no change in average life span until year ~1930, where it begins to steeply decline.
+
+```{R}
+# creating country variable
+df2 = art_wrangled
+# not quite sure why I was not able to achieve the effects of the for loop with mutate(); failed implementation -> mutate(country = str_split(placeOfBirth, ",")[[1]][2])
+for(i in 1:nrow(df2)) { 
+  df2$country[i] = str_split(df2$placeOfBirth[i], ",")[[1]][2] 
+} 
+
+df2 %>%
+  group_by(country) %>%
+  summarise(n = n()) %>%
+  na.omit %>%
+  slice_max(n, n = 10) %>%
+  arrange(desc(n)) %>%
+  
+  ggplot(aes(x = reorder(country, -n), y = n)) +
+  geom_bar(
+    aes(fill = factor(country)), 
+    stat = "summary") +
+  geom_text(
+    aes(label = n),
+    family = "Palantino",
+    vjust = -0.2,
+    size = 2.4) +
+  labs(
+    title = "Top 10 Artist Country of Origin by Number of Artworks",
+    x = "Artist Country of Origin",
+    y = "Number of Artworks", 
+    fill = "Artist Country of Origin") + 
+  theme(plot.title = element_text(size = rel(1.4)),
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) +
+  scale_y_continuous(breaks = seq(0, 6000, by = 500)) 
+```
+
+In this visualization, not only can we observe that the Top 10 countries of origin of Tate Collection artworks, we can visualize the proportions of their quantity difference. It clearly showcases the art collection's predominant bias towards collecting works from UK artists, in such a magnitude that their UK art collection is 4 times the size of their US art collection.
+
+```{R}
+art_wrangled %>%
+  filter(!is.na(gender)) %>%
+  # mutate(size = width*height/10000) %>%
+  # filter(!is.na(size)) %>%
+  # group_by(gender) %>%
+  # mutate(ind = n_distinct(artist)) %>%
+  
+  ggplot(aes(x = gender, y = age)) +
+  geom_boxplot(aes(fill = factor(gender))) +
+  # geom_text(
+  #   aes(label = n),
+  #   family = "Palantino",
+  #   vjust = -0.2,
+  #   size = 2.4) +
+  labs(
+    title = "Distribution of Artist Ages by Gender",
+    x = "Artist Gender",
+    y = "Artist Age",
+    fill = "Artist Gender") +
+  theme(plot.title = element_text(size = rel(1.4)),
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank())  +
+        scale_y_continuous(breaks = seq(0, 100, by = 5))
+```
+
+In this visualization, we examine the gender-based difference between Tate Collection artists' age distributions. The visualization shows that the Tate Collection tends to collect artwork from older male artists overall, with an average difference between gender of around 5 years, and higher variance in the male artists population than female.
+
